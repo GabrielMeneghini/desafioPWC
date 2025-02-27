@@ -1,4 +1,8 @@
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -22,9 +26,10 @@ public class Main {
                 5- Verifique se a string é um anagrama de um palíndromo.
                 
                 0- Sair.""");
-            switch(escolha = sc.nextInt()) {
+            escolha = sc.nextInt(); sc.nextLine();
+            switch(escolha) {
                 case 1:
-                    System.out.println("teste 1");
+                    reverterOrdemPalavras();
                     break;
                 case 0:
                     System.out.println("Saindo...");
@@ -33,6 +38,17 @@ public class Main {
                     System.out.println("Número inválido.");
                     break;
             }
+        }
+    }
+
+    public static void reverterOrdemPalavras() {
+        System.out.print("Digite a frase a ser invertida: ");
+        String frase = sc.nextLine();
+        List<String> stringList = Arrays.stream(frase.split(" ")).collect(Collectors.toList());
+        Collections.reverse(stringList);
+        System.out.println("Frase invertida:");
+        for(String x : stringList) {
+            System.out.print(x + " ");
         }
     }
 }
