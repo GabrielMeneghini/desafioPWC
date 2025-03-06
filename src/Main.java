@@ -2,6 +2,8 @@ import java.text.Normalizer;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.util.Arrays.stream;
+
 public class Main {
 
     private static Scanner sc = new Scanner(System.in);
@@ -27,13 +29,24 @@ public class Main {
             escolha = sc.nextInt(); sc.nextLine();
             switch(escolha) {
                 case 1:
-                    reverterOrdemPalavras();
+                    System.out.print("Digite a string a ser invertida: ");
+                    String s1 = sc.nextLine();
+                    System.out.println(reverterOrdemPalavras(s1));
                     break;
                 case 2:
-                    removerCaracteresDuplicados();
+                    System.out.print("Digite a string a ser formatada: ");
+                    String s2 = sc.nextLine();
+                    System.out.println(removerCaracteresDuplicados(s2));
                     break;
                 case 3:
-                    maiorSubStringPalindroma();
+                    System.out.print("Digite a string: ");
+                    String s3 = sc.nextLine();
+                    System.out.println(maiorSubStringPalindroma(s3));
+                    break;
+                case 4:
+                    System.out.print("Digite uma frase: ");
+                    String s4 = sc.nextLine();
+                    System.out.println(primeiraLetraMaiuscula(s4));
                     break;
                 case 0:
                     System.out.println("Saindo...");
@@ -45,28 +58,24 @@ public class Main {
         }
     }
 
-    public static void reverterOrdemPalavras() {
-        System.out.print("Digite a string a ser invertida: ");
-        String frase = sc.nextLine();
-        List<String> stringList = Arrays.stream(frase.split(" ")).collect(Collectors.toList());
+    public static String reverterOrdemPalavras(String s) {
+        List<String> stringList = stream(s.split(" ")).collect(Collectors.toList());
         Collections.reverse(stringList);
         System.out.println("Frase invertida:");
+        String stringInvertida = "";
         for(String x : stringList) {
-            System.out.print(x + " ");
+            stringInvertida += x + " ";
         }
+        return stringInvertida.trim();
     }
 
-    public static void removerCaracteresDuplicados() {
-        System.out.print("Digite a string a ser formatada: ");
-        String frase = sc.nextLine();
-        String[] strings = frase.split("");
+    public static String removerCaracteresDuplicados(String s) {
+        String[] strings = s.split("");
         Set<String> stringSet = new LinkedHashSet<>(Arrays.asList(strings));
-        stringSet.forEach(System.out::print);
+        return stringSet.stream().reduce("", (s1, s2) -> s1 + s2);
     }
 
-    public static void maiorSubStringPalindroma() {
-        System.out.print("Digite a string: ");
-        String s = sc.nextLine();
+    public static String maiorSubStringPalindroma(String s) {
         List<String> subPalindromos = new ArrayList<>();
         int n = s.length();
 
@@ -80,10 +89,16 @@ public class Main {
         }
         subPalindromos.sort((s1, s2) -> Integer.compare(s2.length(), s1.length()));
         if(!subPalindromos.isEmpty()) {
-            System.out.println(subPalindromos.get(0));
+            return subPalindromos.get(0);
         } else {
-            System.out.println("Nenhuma substring palindroma encontrada para a string.");
+            return "Nenhuma substring palindroma encontrada para a string.";
         }
+    }
+
+    public static String primeiraLetraMaiuscula(String s) {
+        List<String> frases = stream(s.split("(?<=[.!?])\\s*")).toList();
+
+        return frases.stream().map(x -> x.substring(0, 1).toUpperCase() + x.substring(1)).reduce("", (x1, x2)  -> x1 + " " + x2).trim();
     }
 
     public static boolean ehPalindromo(String palavra) {
