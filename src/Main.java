@@ -11,12 +11,14 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("*** Desafio PWC ***");
         menu();
+        sc.close();
     }
 
     public static void menu() {
         int escolha = -1;
         while(escolha != 0) {
-            System.out.print("""
+            try {
+                System.out.print("""
                 \n1- Reverta a ordem das palavras da string, mantendo a ordem das palavras.
                 2- Remova todos os caracteres duplicados da string.
                 3- Encontre a substring palíndroma mais longa em uma frase/palavra.
@@ -25,43 +27,48 @@ public class Main {
                 0- Sair.
                 
                 Digite um número para escolher um dos tipos de manipulação acima:""");
-            escolha = sc.nextInt(); sc.nextLine();
-            switch(escolha) {
-                case 1:
-                    System.out.print("Digite a string a ser invertida: ");
-                    String s1 = sc.nextLine();
-                    System.out.println("Frase invertida: " + reverterOrdemPalavras(s1));
-                    break;
-                case 2:
-                    System.out.print("Digite a string a ser formatada: ");
-                    String s2 = sc.nextLine();
-                    System.out.println("String sem caracteres duplicados: " + removerCaracteresDuplicados(s2));
-                    break;
-                case 3:
-                    System.out.print("Digite a string: ");
-                    String s3 = sc.nextLine();
-                    System.out.println("Substring palíndroma mais longa encontrada: " + maiorSubStringPalindroma(s3));
-                    break;
-                case 4:
-                    System.out.print("Digite uma frase: ");
-                    String s4 = sc.nextLine();
-                    System.out.println("String formatada: " + primeiraLetraMaiuscula(s4));
-                    break;
-                case 5:
-                    System.out.print("Digite uma frase: ");
-                    String s5 = sc.nextLine();
-                    if(ehAnagramaDePalindromo(s5)) {
-                        System.out.println("\"" + s5 + "\" é um anagrama de um palíndromo.");
-                    } else {
-                        System.out.println("\"" + s5 + "\" não é um anagrama de um palíndromo.");
-                    }
-                    break;
-                case 0:
-                    System.out.println("Saindo...");
-                    break;
-                default:
-                    System.out.println("Número inválido.");
-                    break;
+
+                escolha = sc.nextInt(); sc.nextLine();
+                switch(escolha) {
+                    case 1:
+                        System.out.print("Digite a string a ser invertida: ");
+                        String s1 = sc.nextLine();
+                        System.out.println("Frase invertida: " + reverterOrdemPalavras(s1));
+                        break;
+                    case 2:
+                        System.out.print("Digite a string a ser formatada: ");
+                        String s2 = sc.nextLine();
+                        System.out.println("String sem caracteres duplicados: " + removerCaracteresDuplicados(s2));
+                        break;
+                    case 3:
+                        System.out.print("Digite a string: ");
+                        String s3 = sc.nextLine();
+                        System.out.println("Substring palíndroma mais longa encontrada: " + maiorSubStringPalindroma(s3));
+                        break;
+                    case 4:
+                        System.out.print("Digite uma frase: ");
+                        String s4 = sc.nextLine();
+                        System.out.println("String formatada: " + primeiraLetraMaiuscula(s4));
+                        break;
+                    case 5:
+                        System.out.print("Digite uma frase: ");
+                        String s5 = sc.nextLine();
+                        if(ehAnagramaDePalindromo(s5)) {
+                            System.out.println("\"" + s5 + "\" é um anagrama de um palíndromo.");
+                        } else {
+                            System.out.println("\"" + s5 + "\" não é um anagrama de um palíndromo.");
+                        }
+                        break;
+                    case 0:
+                        System.out.println("Saindo...");
+                        break;
+                    default:
+                        System.out.println("Número inválido.");
+                        break;
+                }
+            } catch(InputMismatchException e) {
+                sc.nextLine();
+                System.out.println("Caractere inválido.");
             }
         }
     }
